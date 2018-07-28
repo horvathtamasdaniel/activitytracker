@@ -15,14 +15,41 @@ public class Track {
     }
 
     public Coordinate findMaximumCoordinate() {
-        if (isValidList(trackPoints)) {
+        if (!isValidList(trackPoints)) {
+            throw new IllegalArgumentException("List must not be null or empty!");
     }
+    double maxLat = trackPoints.get(0).getCoordinate().getLatitude();
 
-        return null;
+    double maxLong = trackPoints.get(0).getCoordinate().getLongitude();
+
+    for (TrackPoint tp: trackPoints) {
+        if (tp.getCoordinate().getLatitude() > maxLat) {
+            maxLat = tp.getCoordinate().getLatitude();
+        }
+        if (tp.getCoordinate().getLongitude() > maxLong) {
+            maxLong = tp.getCoordinate().getLongitude();
+        }
+    }
+        return new Coordinate(maxLat, maxLong);
     }
 
     public Coordinate findMinimumCoordinate() {
-        return null;
+        if (!isValidList(trackPoints)) {
+            throw new IllegalArgumentException("List must not be null or empty!");
+        }
+        double minLat = trackPoints.get(0).getCoordinate().getLatitude();
+
+        double minLong = trackPoints.get(0).getCoordinate().getLongitude();
+
+        for (TrackPoint tp: trackPoints) {
+            if (tp.getCoordinate().getLatitude() < minLat) {
+                minLat = tp.getCoordinate().getLatitude();
+            }
+            if (tp.getCoordinate().getLongitude() < minLong) {
+                minLong = tp.getCoordinate().getLongitude();
+            }
+        }
+        return new Coordinate(minLat, minLong);
     }
 
     public double getDistance() {
@@ -41,15 +68,39 @@ public class Track {
     }
 
     public double getFullDecrease() {
-        return 0.0;
+        if (!isValidList(trackPoints)) {
+            throw new IllegalArgumentException("List must not be null or empty!");
+        }
+        double sum = 0;
+
+        for (int i = 0; i < (trackPoints.size() - 1); i++) {
+            if (trackPoints.get(i + 1).getElevation() < trackPoints.get(i).getElevation()) {
+                sum+= (trackPoints.get(i).getElevation() - trackPoints.get(i + 1).getElevation());
+            }
+        }
+        return sum;
     }
 
     public double getFullElevation() {
-        return 0.0;
+        if (!isValidList(trackPoints)) {
+            throw new IllegalArgumentException("List must not be null or empty!");
+        }
+        double sum = 0;
+
+        for (int i = 0; i < (trackPoints.size() - 1); i++) {
+            if (trackPoints.get(i + 1).getElevation() > trackPoints.get(i).getElevation()) {
+                sum+= (trackPoints.get(i + 1).getElevation() - trackPoints.get(i).getElevation());
+            }
+        }
+        return sum;
     }
 
     public double getRectangleArea() {
-        return 0.0;
+        double a = (findMaximumCoordinate().getLatitude() - findMinimumCoordinate().getLatitude());
+
+        double b = (findMaximumCoordinate().getLongitude() - findMinimumCoordinate().getLongitude());
+
+        return a * b;
     }
 
     public List<TrackPoint> getTrackPoints() {
