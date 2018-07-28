@@ -7,7 +7,7 @@ public class ActivityWithTrack implements Activity {
 
     public ActivityWithTrack(Track track, ActivityType activityType) {
         if (track == null || activityType == null) {
-            throw new IllegalAccessException("msg");
+            throw new IllegalArgumentException("msg");
         }
         this.track = track;
         this.activityType = activityType;

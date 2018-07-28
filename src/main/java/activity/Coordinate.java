@@ -9,8 +9,9 @@ public class Coordinate {
         if (validLatitude(latitude) && validLongitude(longitude)) {
             this.latitude = latitude;
             this.longitude = longitude;
+        } else {
+            throw new IllegalArgumentException();
         }
-        throw new IllegalArgumentException();
     }
 
     public double getLatitude() {
