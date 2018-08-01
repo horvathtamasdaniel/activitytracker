@@ -13,14 +13,14 @@ public class Track {
 
     public void addTrackPoint(TrackPoint trackPoint) {
         if (trackPoint == null) {
-            throw new IllegalArgumentException("Trackpoint must not be null!");
+            throw new IllegalStateException("Trackpoint must not be null!");
         }
         trackPoints.add(trackPoint);
     }
 
     public double getDistance() {
         if (isInvalidList(trackPoints)) {
-            throw new IllegalArgumentException("List must not be null or empty!");
+            throw new IllegalStateException("List must not be null or empty!");
         }
         if (trackPoints.size() == 1) {
             return 0.0;
@@ -35,7 +35,7 @@ public class Track {
 
     public double getFullDecrease() {
         if (isInvalidList(trackPoints)) {
-            throw new IllegalArgumentException("List must not be null or empty!");
+            throw new IllegalStateException("List must not be null or empty!");
         }
         double sum = 0.0;
 
@@ -49,7 +49,7 @@ public class Track {
 
     public double getFullElevation() {
         if (isInvalidList(trackPoints)) {
-            throw new IllegalArgumentException("List must not be null or empty!");
+            throw new IllegalStateException("List must not be null or empty!");
         }
         double sum = 0.0;
 
@@ -63,7 +63,7 @@ public class Track {
 
     public Coordinate findMaximumCoordinate() {
         if (isInvalidList(trackPoints)) {
-            throw new IllegalArgumentException("List must not be null or empty!");
+            throw new IllegalStateException("List must not be null or empty!");
         }
         double maxLat = trackPoints.get(0).getCoordinate().getLatitude();
 
@@ -82,7 +82,7 @@ public class Track {
 
     public Coordinate findMinimumCoordinate() {
         if (isInvalidList(trackPoints)) {
-            throw new IllegalArgumentException("List must not be null or empty!");
+            throw new IllegalStateException("List must not be null or empty!");
         }
         double minLat = trackPoints.get(0).getCoordinate().getLatitude();
 
@@ -100,11 +100,11 @@ public class Track {
     }
 
     public double getRectangleArea() {
-        double a = (findMaximumCoordinate().getLatitude() - findMinimumCoordinate().getLatitude());
+        double a = findMaximumCoordinate().getLatitude() - findMinimumCoordinate().getLatitude();
 
-        double b = (findMaximumCoordinate().getLongitude() - findMinimumCoordinate().getLongitude());
+        double b = findMaximumCoordinate().getLongitude() - findMinimumCoordinate().getLongitude();
 
-        return (a * b);
+        return a * b;
     }
 
     private boolean isInvalidList(List list) {

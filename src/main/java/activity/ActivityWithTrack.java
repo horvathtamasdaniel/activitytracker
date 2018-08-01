@@ -7,7 +7,7 @@ public class ActivityWithTrack implements Activity {
 
     public ActivityWithTrack(Track track, ActivityType activityType) {
         if (track == null || activityType == null) {
-            throw new IllegalArgumentException("msg");
+            throw new IllegalArgumentException("Parameters cannot be null");
         }
         this.track = track;
         this.activityType = activityType;

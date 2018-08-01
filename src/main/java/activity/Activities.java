@@ -33,12 +33,16 @@ public class Activities {
             switch (a.getType()) {
                 case BASKETBALL:
                     basketballDistance += a.getDistance();
+                    break;
                 case BIKING:
                     bikingDistance += a.getDistance();
+                    break;
                 case HIKING:
                     hikingDistance += a.getDistance();
+                    break;
                 case RUNNING:
                     runningDistance += a.getDistance();
+                    break;
             }
         }
 
